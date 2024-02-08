@@ -1,3 +1,5 @@
+using BlazorMultiApp.Identity.Infrastructure;
+using BlazorMultiApp.Identity.Service;
 
 namespace BlazorMultiApp.API.Identity
 {
@@ -10,6 +12,10 @@ namespace BlazorMultiApp.API.Identity
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services
+                .AddApplication()
+                .AddInfrastructure(builder.Configuration);
 
             var app = builder.Build();
 

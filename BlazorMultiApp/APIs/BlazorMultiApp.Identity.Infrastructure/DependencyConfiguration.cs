@@ -1,4 +1,5 @@
-﻿using BlazorMultiApp.Identity.Infrastructure.Data;
+﻿using BlazorMultiApp.Identity.Domain.Models;
+using BlazorMultiApp.Identity.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,13 +16,14 @@ namespace BlazorMultiApp.Identity.Infrastructure
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
-            services.AddIdentityCore<IdentityUser>(options =>
+            services.AddIdentityCore<User>(options =>
                 {
                     options.User.RequireUniqueEmail = true;
                     options.SignIn.RequireConfirmedPhoneNumber = false;
                     options.SignIn.RequireConfirmedAccount = false;
                     options.SignIn.RequireConfirmedEmail = false;
                 })
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             return services;
