@@ -8,5 +8,7 @@ namespace BlazorMultiApp.Identity.Domain.Models
         public string LastName { get; set; }
         [PersonalData]
         public string FirstName { get; set; }
+        [PersonalData]
+        public string? MiddleName { get; set; } = string.Empty;
     }
 }

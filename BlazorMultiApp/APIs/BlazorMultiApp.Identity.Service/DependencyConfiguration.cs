@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using BlazorMultiApp.Identity.Service.Services;
+using BlazorMultiApp.Identity.Service.Services.Interfaces;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BlazorMultiApp.Identity.Service
@@ -9,9 +11,9 @@ namespace BlazorMultiApp.Identity.Service
         {
             var assembly = typeof(DependencyConfiguration).Assembly;
 
-            services.AddMediatR(configuration =>
-                configuration.RegisterServicesFromAssembly(assembly));
+            services.AddTransient<IJwtService, JWTService>();
 
+            services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(assembly));
             services.AddValidatorsFromAssembly(assembly);
 
             return services;

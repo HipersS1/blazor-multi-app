@@ -16,7 +16,7 @@ namespace BlazorMultiApp.Identity.Infrastructure
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
-            services.AddIdentityCore<User>(options =>
+            services.AddIdentity<User, IdentityRole<Guid>>(options =>
                 {
                     options.User.RequireUniqueEmail = true;
                     options.SignIn.RequireConfirmedPhoneNumber = false;
@@ -24,7 +24,8 @@ namespace BlazorMultiApp.Identity.Infrastructure
                     options.SignIn.RequireConfirmedEmail = false;
                 })
                 .AddRoles<IdentityRole<Guid>>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             return services;
         }

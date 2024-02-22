@@ -1,3 +1,4 @@
+using BlazorMultiApp.Identity.API.Options;
 using BlazorMultiApp.Identity.Infrastructure;
 using BlazorMultiApp.Identity.Service;
 
@@ -14,8 +15,21 @@ namespace BlazorMultiApp.API.Identity
             builder.Services.AddSwaggerGen();
 
             builder.Services
-                .AddApplication()
-                .AddInfrastructure(builder.Configuration);
+                .ProcessJWTOptions(builder.Configuration)
+                .AddInfrastructure(builder.Configuration)
+                .AddApplication();
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowedOrigins",
+                    policy =>
+                    {
+                        policy
+                            .AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
 
             var app = builder.Build();
 
@@ -26,6 +40,8 @@ namespace BlazorMultiApp.API.Identity
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowedOrigins");
 
             app.UseAuthorization();
 
