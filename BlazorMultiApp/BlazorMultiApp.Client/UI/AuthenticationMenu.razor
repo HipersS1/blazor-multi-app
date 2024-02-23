@@ -1,0 +1,13 @@
+﻿@inject NavigationManager NavManager
+@inject IConfiguration Configuration
+
+<div class="ceva">
+    <div class="row align-items-start">
+        <div class="col">
+            <button type="button" title="Login" class="btn btn-outline-primary" @onclick="@(() => NavManager.NavigateTo(Configuration["Routes:Login"]) )">Login</button>
+        </div>
+        <div class="col">
+            <button type="button" title="Register" class="btn btn-outline-primary">Register</button>
+        </div>
+    </div>
+</div>

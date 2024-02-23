@@ -1,5 +1,7 @@
 ﻿@page "/counter"
 @rendermode InteractiveAuto
+@inject NavigationManager NavManager
+
 
 <PageTitle>Counter</PageTitle>
 
@@ -9,11 +11,21 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+<button type="button" title="Login" class="btn btn-outline-primary" @onclick="RedirectPage">Login</button>
+
 @code {
     private int currentCount = 0;
 
     private void IncrementCount()
     {
         currentCount++;
+    }
+
+    private void RedirectPage()
+    {
+        NavManager.NavigateTo("/login");
+        // Shows the popup at the center of the screen
+        // popupRef.Show("Popup body text");
+        Console.WriteLine("ASdfsad");
     }
 }
