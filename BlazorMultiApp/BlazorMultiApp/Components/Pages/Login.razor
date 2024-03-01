@@ -1,13 +1,100 @@
 ﻿@page "/login"
-@using BlazorMultiApp.Components.Layout
 @layout EmptyLayout
+@rendermode InteractiveServer
+@inject HttpClient httpClient
+@inject NavigationManager navManager
 
-<div class="container">
+<div class="container my-4">
+    <EditForm EditContext="@editContext"  OnValidSubmit="HandleValidSubmitAsync" novalidate>
+        <DataAnnotationsValidator/>
 
+        <div class="form-group row mb-2">
+            <label class="col-md-2 col-form-label">Email: <span class="text-danger">*</span></label>
+            <div class="col-md-8 input-group">
+                <InputText class="form-control" @bind-Value="authForm.Email" Placeholder="Enter Email" />
+            </div>
+                <ValidationMessage For="@(() => authForm.Email)" />
+        </div>
+
+        <div class="form-group row mb-2">
+            <label class="col-md-2 col-form-label">Password: <span class="text-danger">*</span></label>
+            <div class="col-md-6 input-group">
+                <InputText type="@(IsPasswordVisible ? "text" : "password")" class="form-control" @bind-Value="authForm.Password" Placeholder="Enter password" />
+                <Button Type="ButtonType.Button" id="togglePassword" @onclick="(() => IsPasswordVisible = !IsPasswordVisible)">
+                    <i class="bi @(IsPasswordVisible ? "bi-eye" : "bi-eye-slash")" id="toggleIcon"></i>
+                </Button>
+            </div>
+                <ValidationMessage For="@(() => authForm.Password)" />
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <Button Type="ButtonType.Button" Color="ButtonColor.Secondary" Class="float-end" @onclick="ResetForm">Reset</Button>
+                <Button Type="ButtonType.Submit" Color="ButtonColor.Success" Class="float-end me-2">Login</Button>
+                <a class="float-end me-2" href="@Constants.Routes.Register">Require an account?</a>
+            </div>
+        </div>
+        <AntiforgeryToken />
+    </EditForm>
 </div>
 
-<h3>Login</h3>
-
 @code {
+    public EditContext? editContext { get; set; }
+    public AuthForm authForm { get; set; } = new();
+    [Inject] protected ToastService toastService { get; set; } = default!;
+    public bool IsPasswordVisible { get; set; } = false;
 
+    protected override void OnInitialized()
+    {
+        editContext = new EditContext(authForm);
+
+        base.OnInitialized();
+    }
+
+    public async Task HandleValidSubmitAsync()
+    {
+        var toastMessage = new ToastMessage
+        (
+            type: ToastType.Success,
+            iconName: IconName.Check2All,
+            title: Constants.Messages.Success,
+            message: Constants.Messages.SuccesfulLogin
+        );
+
+        var result = await httpClient.PostAsJsonAsync(Constants.Addresses.SignInEndpoint, authForm);
+
+        if (result.IsSuccessStatusCode)
+        {
+            toastService.Notify(toastMessage);
+            await Task.Delay(1500);
+            navManager.NavigateTo("/");
+        }
+    }
+
+    // public void HandleInvalidSubmit()
+    // {
+    //     var toastMessage = new ToastMessage
+    //     (
+    //         type: ToastType.Danger,
+    //         iconName: IconName.X,
+    //         title: "An error has occured!",
+    //         message: "Invalid credentials"
+    //     );
+
+    //     toastService.Notify(toastMessage);
+    // }
+
+    private void ResetForm()
+    {
+        authForm = new AuthForm();
+        editContext = new EditContext(authForm);
+    }
+
+    public class AuthForm
+    {
+        [Required(ErrorMessage = "Email is required")]
+        public string Email { get; set; }
+        [Required(ErrorMessage = "Password is required")]
+        public string Password { get; set; }
+    }
 }

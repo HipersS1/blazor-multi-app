@@ -1,7 +1,10 @@
 ﻿@inherits LayoutComponentBase
+@using BlazorBootstrap;
 
 <div class="page">
     <main class="min-vh-100">
+        <Toasts class="p-3" AutoHide="true" Delay="2500" Placement="ToastsPlacement.TopRight" @rendermode="InteractiveAuto"/>
         @Body
     </main>
 </div>
+

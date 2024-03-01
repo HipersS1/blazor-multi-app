@@ -14,6 +14,10 @@ namespace BlazorMultiApp
                 .AddInteractiveServerComponents()
                 .AddInteractiveWebAssemblyComponents();
 
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetSection("BaseUri:API").Value) });
+
+            builder.Services.AddBlazorBootstrap();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

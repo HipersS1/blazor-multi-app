@@ -49,10 +49,3 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
-
-
-.ceva {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}

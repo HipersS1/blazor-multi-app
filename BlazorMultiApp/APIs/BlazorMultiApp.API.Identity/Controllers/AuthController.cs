@@ -9,7 +9,7 @@ namespace BlazorMultiApp.Identity.API.Controllers
     {
         // POST api/<AuthController>
         [HttpPost("sign-in")]
-        public IActionResult Post([FromBody] CreateUserRequestDto request)
+        public IActionResult Post([FromBody] AuthenticateRequestDto request)
         {
             return Ok();
         }
@@ -27,8 +27,6 @@ namespace BlazorMultiApp.Identity.API.Controllers
         //{
         //    return "value";
         //}
-
-
 
         //// PUT api/<AuthController>/5
         //[HttpPut("{id}")]
