@@ -1,17 +1,23 @@
-﻿using BlazorMultiApp.Identity.Service.DTOs.Request;
+﻿using BlazorMultiApp.Identity.Service.Commands;
+using BlazorMultiApp.Identity.Service.DTOs.Request;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorMultiApp.Identity.API.Controllers
 {
     [Route("api/auth")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController(IMediator mediator) : ControllerBase
     {
+        private readonly IMediator _mediator = mediator;
+
         // POST api/<AuthController>
         [HttpPost("sign-in")]
-        public IActionResult Post([FromBody] AuthenticateRequestDto request)
+        public async Task<IActionResult> Post([FromBody] AuthenticateRequestDto request)
         {
-            return Ok();
+            var result = await _mediator.Send(new AuthenticateCommand(request));
+
+            return Ok(result);
         }
 
         //// GET: api/<AuthController>

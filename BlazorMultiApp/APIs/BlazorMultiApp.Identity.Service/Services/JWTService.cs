@@ -18,7 +18,7 @@ namespace BlazorMultiApp.Identity.Service.Services
                 { ClaimName.FamilyName.ToString(),  user.LastName},
                 { ClaimName.GivenName.ToString(), user.LastName},
                 { ClaimName.MiddleName.ToString(), user.MiddleName ?? string.Empty},
-                { "client_id", user.Id }
+                { "client_id", user.Id.ToString() }
             });
         }
 
@@ -35,7 +35,7 @@ namespace BlazorMultiApp.Identity.Service.Services
         {
             throw new NotImplementedException();
         }
-
+        
         private string GenerateToken(IEnumerable<KeyValuePair<string, object>> claims)
         {
             var rsaKeys = CreateRSAKeys();
@@ -50,8 +50,9 @@ namespace BlazorMultiApp.Identity.Service.Services
         {
             var rsaPrivate = RSA.Create();
             var rsaPublic = RSA.Create();
+            var s = Convert.FromBase64String(KeyOptions.Value.PrivateKey);
 
-            rsaPrivate.ImportRSAPrivateKey(Convert.FromBase64String(KeyOptions.Value.PrivateKey), out _);
+            rsaPrivate.ImportRSAPrivateKey(new ReadOnlySpan<byte>(s), out _);
             rsaPrivate.ImportRSAPublicKey(Convert.FromBase64String(KeyOptions.Value.PublicKey), out _);
 
             return (rsaPrivate, rsaPublic);

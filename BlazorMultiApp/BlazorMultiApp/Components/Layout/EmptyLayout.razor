@@ -2,7 +2,11 @@
 @using BlazorBootstrap;
 
 <div class="page">
-    <main class="min-vh-100">
+    <div>
+        <NavBar />
+    </div>
+
+    <main>
         <Toasts class="p-3" AutoHide="true" Delay="2500" Placement="ToastsPlacement.TopRight" @rendermode="InteractiveAuto"/>
         @Body
     </main>

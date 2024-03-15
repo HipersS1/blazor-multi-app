@@ -21,9 +21,10 @@ namespace BlazorMultiApp.Identity.Service.CommandHandlers
             }
 
             var userResult = await UserManager.FindByEmailAsync(request.AuthenticateRequestDto.Email);
-            var accessToken = JwtService.GenerateAccessToken(userResult!);
 
-            return Result.Ok();
+            var authorizationDto = new AuthorizationDto(JwtService.GenerateAccessToken(userResult!), string.Empty);
+
+            return Result.Ok(authorizationDto);
         }
     }
 }

@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMultiApp.Identity.Ser
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMultiApp.Identity.Utils", "BlazorMultiApp.Identity.Utils\BlazorMultiApp.Identity.Utils.csproj", "{E9F1DA4D-0850-492F-A427-50FEFABC7364}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Constants", "Constants\Constants.csproj", "{0DD873B9-62D4-48C9-9413-3A4FA366C201}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Constants", "Constants\Constants.csproj", "{0DD873B9-62D4-48C9-9413-3A4FA366C201}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

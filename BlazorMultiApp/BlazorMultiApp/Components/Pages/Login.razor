@@ -3,45 +3,46 @@
 @rendermode InteractiveServer
 @inject HttpClient httpClient
 @inject NavigationManager navManager
+@inject ToastService toastService
 
 <div class="container my-4">
-    <EditForm EditContext="@editContext"  OnValidSubmit="HandleValidSubmitAsync" novalidate>
-        <DataAnnotationsValidator/>
+    <div class="col-lg-6 mx-auto">
+        <EditForm EditContext="@editContext" OnValidSubmit="HandleValidSubmitAsync" novalidate>
+            <DataAnnotationsValidator />
 
-        <div class="form-group row mb-2">
-            <label class="col-md-2 col-form-label">Email: <span class="text-danger">*</span></label>
-            <div class="col-md-8 input-group">
-                <InputText class="form-control" @bind-Value="authForm.Email" Placeholder="Enter Email" />
-            </div>
+            <div class="form-group row mb-2">
+                <div class="input-group">
+                    <i class="bi bi-file-person fs-3 me-2"></i>
+                    <InputText class="form-control" @bind-Value="authForm.Email" Placeholder="Enter Email" />
+                </div>
                 <ValidationMessage For="@(() => authForm.Email)" />
-        </div>
-
-        <div class="form-group row mb-2">
-            <label class="col-md-2 col-form-label">Password: <span class="text-danger">*</span></label>
-            <div class="col-md-6 input-group">
-                <InputText type="@(IsPasswordVisible ? "text" : "password")" class="form-control" @bind-Value="authForm.Password" Placeholder="Enter password" />
-                <Button Type="ButtonType.Button" id="togglePassword" @onclick="(() => IsPasswordVisible = !IsPasswordVisible)">
-                    <i class="bi @(IsPasswordVisible ? "bi-eye" : "bi-eye-slash")" id="toggleIcon"></i>
-                </Button>
             </div>
+
+            <div class="form-group row mb-2">
+                <div class="input-group">
+                    <i class="bi bi-key-fill fs-3 me-2"></i>
+                    <InputText type="@(IsPasswordVisible ? "text" : "password")" class="form-control" @bind-Value="authForm.Password" Placeholder="Enter password" />
+                    <Button Type="ButtonType.Button" id="togglePassword" class="border" @onclick="(() => IsPasswordVisible = !IsPasswordVisible)">
+                        <i class="bi @(IsPasswordVisible ? "bi-eye" : "bi-eye-slash")" id="toggleIcon"></i>
+                    </Button>
+                </div>
                 <ValidationMessage For="@(() => authForm.Password)" />
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <Button Type="ButtonType.Button" Color="ButtonColor.Secondary" Class="float-end" @onclick="ResetForm">Reset</Button>
-                <Button Type="ButtonType.Submit" Color="ButtonColor.Success" Class="float-end me-2">Login</Button>
-                <a class="float-end me-2" href="@Constants.Routes.Register">Require an account?</a>
             </div>
-        </div>
-        <AntiforgeryToken />
-    </EditForm>
+
+            <div class="row">
+                <div class="text-right">
+                    <Button Type="ButtonType.Submit" Color="ButtonColor.Success" Class="float-end w-25">Login</Button>
+                    <a class="float-end me-2" href="@Constants.Routes.Register">Require an account?</a>
+                </div>
+            </div>
+            <AntiforgeryToken />
+        </EditForm>
+    </div>
 </div>
 
 @code {
     public EditContext? editContext { get; set; }
     public AuthForm authForm { get; set; } = new();
-    [Inject] protected ToastService toastService { get; set; } = default!;
     public bool IsPasswordVisible { get; set; } = false;
 
     protected override void OnInitialized()
@@ -70,19 +71,6 @@
             navManager.NavigateTo("/");
         }
     }
-
-    // public void HandleInvalidSubmit()
-    // {
-    //     var toastMessage = new ToastMessage
-    //     (
-    //         type: ToastType.Danger,
-    //         iconName: IconName.X,
-    //         title: "An error has occured!",
-    //         message: "Invalid credentials"
-    //     );
-
-    //     toastService.Notify(toastMessage);
-    // }
 
     private void ResetForm()
     {

@@ -4,6 +4,7 @@ using BlazorMultiApp.Identity.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorMultiApp.Identity.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240312091243_init-data")]
+    partial class initdata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,18 +108,17 @@ namespace BlazorMultiApp.Identity.Infrastructure.Migrations
                         {
                             Id = new Guid("8e721037-c9fc-4ca0-80da-b414f5b72d36"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "165fa94d-d610-4c03-a676-13ce9e35d737",
+                            ConcurrencyStamp = "3b93bf92-b055-4df3-999f-be3220304b32",
                             Email = "admin@adm.com",
                             EmailConfirmed = true,
                             FirstName = "Jim",
                             LastName = "Cool",
                             LockoutEnabled = false,
                             MiddleName = "",
-                            NormalizedEmail = "ADMIN@ADM.COM",
                             NormalizedUserName = "ADMIN@ADM.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBKOjvBxxgqmLI4NJ//cff5f+DhTtRxs84Kc9z8X9qjODzFbrQ7HyB2uno2UEtMDmw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDIfPrh7W1j2jgqvoCMAwA2OFvRJd+Nh+xhVDHeXXwzlBHidRaMPACKykQBxmQ9iEA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "555a185e-68c5-4758-8021-b521b6df61cf",
+                            SecurityStamp = "2a3259cc-3d58-4771-bd66-a074fddd66c0",
                             TwoFactorEnabled = false,
                             UserName = "admin@adm.com"
                         });
