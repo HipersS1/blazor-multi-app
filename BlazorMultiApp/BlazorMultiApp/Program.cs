@@ -14,6 +14,8 @@ namespace BlazorMultiApp
                 .AddInteractiveServerComponents()
                 .AddInteractiveWebAssemblyComponents();
 
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetSection("BaseUri:API").Value) });
 
             builder.Services.AddBlazorBootstrap();

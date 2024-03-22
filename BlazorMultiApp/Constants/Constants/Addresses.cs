@@ -6,5 +6,6 @@
         private const string AuthControllerPrefix = "auth/";
 
         public const string SignInEndpoint = $"{BaseControllerPrefix}{AuthControllerPrefix}sign-in";
+        public const string TestAuthEndpoint = $"{BaseControllerPrefix}{AuthControllerPrefix}";
     }
 }

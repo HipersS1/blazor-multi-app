@@ -4,6 +4,9 @@
 @inject HttpClient httpClient
 @inject NavigationManager navManager
 @inject ToastService toastService
+@inject IJSRuntime jsRuntime
+@inject IHttpContextAccessor httpContextAccessor
+@inject IAuthorizationService authorizationService
 
 <div class="container my-4">
     <div class="col-lg-6 mx-auto">
@@ -21,8 +24,10 @@
             <div class="form-group row mb-2">
                 <div class="input-group">
                     <i class="bi bi-key-fill fs-3 me-2"></i>
-                    <InputText type="@(IsPasswordVisible ? "text" : "password")" class="form-control" @bind-Value="authForm.Password" Placeholder="Enter password" />
-                    <Button Type="ButtonType.Button" id="togglePassword" class="border" @onclick="(() => IsPasswordVisible = !IsPasswordVisible)">
+                    <InputText type="@(IsPasswordVisible ? "text" : "password")" class="form-control"
+                        @bind-Value="authForm.Password" Placeholder="Enter password" />
+                    <Button Type="ButtonType.Button" id="togglePassword" class="border"
+                        @onclick="(() => IsPasswordVisible = !IsPasswordVisible)">
                         <i class="bi @(IsPasswordVisible ? "bi-eye" : "bi-eye-slash")" id="toggleIcon"></i>
                     </Button>
                 </div>
@@ -45,6 +50,9 @@
     public AuthForm authForm { get; set; } = new();
     public bool IsPasswordVisible { get; set; } = false;
 
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; }
+
     protected override void OnInitialized()
     {
         editContext = new EditContext(authForm);
@@ -56,19 +64,29 @@
     {
         var toastMessage = new ToastMessage
         (
-            type: ToastType.Success,
-            iconName: IconName.Check2All,
-            title: Constants.Messages.Success,
-            message: Constants.Messages.SuccesfulLogin
+        type: ToastType.Success,
+        iconName: IconName.Check2All,
+        title: Constants.Messages.Success,
+        message: Constants.Messages.SuccesfulLogin
         );
 
-        var result = await httpClient.PostAsJsonAsync(Constants.Addresses.SignInEndpoint, authForm);
+        var response = await httpClient.PostAsJsonAsync(Constants.Addresses.SignInEndpoint, authForm);
 
-        if (result.IsSuccessStatusCode)
+        if (response.IsSuccessStatusCode)
         {
+            IEnumerable<string> cookies = response.Headers.SingleOrDefault(header => header.Key == "Set-Cookie").Value.First().Split(";");
+
+
+
             toastService.Notify(toastMessage);
             await Task.Delay(1500);
-            navManager.NavigateTo("/");
+            navManager.NavigateTo("/auth-home");
+
+
+            // authorizationService.AuthorizeAsync()
+            @* Console.WriteLine(httpContextAccessor);
+response = await httpClient.GetAsync(Constants.Addresses.TestAuthEndpoint);
+Console.WriteLine(response); *@
         }
     }
 

@@ -20,6 +20,7 @@
   <ItemGroup>
     <PackageReference Include="FluentResults" Version="3.15.2" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+    <PackageReference Include="IdentityModel" Version="6.2.0" />
     <PackageReference Include="JWT" Version="10.1.1" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />

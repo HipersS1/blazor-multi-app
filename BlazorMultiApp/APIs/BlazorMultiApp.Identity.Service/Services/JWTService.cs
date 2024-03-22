@@ -1,10 +1,10 @@
 ﻿using BlazorMultiApp.Identity.Domain.Models;
 using BlazorMultiApp.Identity.Service.Options.Models;
 using BlazorMultiApp.Identity.Service.Services.Interfaces;
+using IdentityModel;
 using JWT.Algorithms;
 using JWT.Builder;
 using Microsoft.Extensions.Options;
-using System.Security.Cryptography;
 
 namespace BlazorMultiApp.Identity.Service.Services
 {
@@ -14,11 +14,11 @@ namespace BlazorMultiApp.Identity.Service.Services
         {
             return GenerateToken(new Dictionary<string, object>
             {
-                { ClaimName.ExpirationTime.ToString(), DateTimeOffset.UtcNow.AddDays(1).ToUnixTimeSeconds() },
-                { ClaimName.FamilyName.ToString(),  user.LastName},
-                { ClaimName.GivenName.ToString(), user.LastName},
-                { ClaimName.MiddleName.ToString(), user.MiddleName ?? string.Empty},
-                { "client_id", user.Id.ToString() }
+                { JwtClaimTypes.Expiration, DateTimeOffset.UtcNow.AddDays(1).ToUnixTimeSeconds() },
+                { JwtClaimTypes.FamilyName,  user.LastName},
+                { JwtClaimTypes.GivenName, user.FirstName},
+                { JwtClaimTypes.MiddleName, user.MiddleName ?? string.Empty},
+                { JwtClaimTypes.Subject, user.Id.ToString() }
             });
         }
 
@@ -26,7 +26,7 @@ namespace BlazorMultiApp.Identity.Service.Services
         {
             return GenerateToken(new Dictionary<string, object>
             {
-                { ClaimName.ExpirationTime.ToString(), DateTimeOffset.UtcNow.AddDays(7).ToUnixTimeSeconds() },
+                { JwtClaimTypes.Expiration, DateTimeOffset.UtcNow.AddDays(7).ToUnixTimeSeconds() },
                 { "refresh_token", Guid.NewGuid() } 
             });
         }
@@ -38,24 +38,12 @@ namespace BlazorMultiApp.Identity.Service.Services
         
         private string GenerateToken(IEnumerable<KeyValuePair<string, object>> claims)
         {
-            var rsaKeys = CreateRSAKeys();
-
             return JwtBuilder.Create()
-                .WithAlgorithm(new RS256Algorithm(rsaKeys.privateKey, rsaKeys.publicKey))
+                .WithAlgorithm(new HMACSHA256Algorithm())
+                .WithSecret(KeyOptions.Value.PrivateKey)
                 .AddClaims(claims)
+                .MustVerifySignature()
                 .Encode();
-        }
-
-        private (RSA privateKey, RSA publicKey) CreateRSAKeys()
-        {
-            var rsaPrivate = RSA.Create();
-            var rsaPublic = RSA.Create();
-            var s = Convert.FromBase64String(KeyOptions.Value.PrivateKey);
-
-            rsaPrivate.ImportRSAPrivateKey(new ReadOnlySpan<byte>(s), out _);
-            rsaPrivate.ImportRSAPublicKey(Convert.FromBase64String(KeyOptions.Value.PublicKey), out _);
-
-            return (rsaPrivate, rsaPublic);
         }
     }
 }

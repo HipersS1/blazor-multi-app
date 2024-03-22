@@ -1,0 +1,25 @@
+@page "/auth-home"
+@inject HttpClient httpClient
+
+<PageTitle>Home</PageTitle>
+
+
+<AuthorizeView>
+    <Authorized>
+        <h1>Hello</h1>
+    </Authorized>
+</AuthorizeView>
+
+
+@code{
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        var response = await httpClient.GetAsync(Constants.Addresses.TestAuthEndpoint);
+        Console.WriteLine(response);
+
+        return ;
+    }
+}

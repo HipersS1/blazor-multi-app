@@ -14,10 +14,15 @@ namespace BlazorMultiApp.API.Identity
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddInfrastructure(builder.Configuration);
+
+            builder.Services.AddApplication();
+
+            builder.Services.ConfigureAuthenticationOptions(builder.Configuration);
+
             builder.Services
                 .ProcessJWTOptions(builder.Configuration)
-                .AddInfrastructure(builder.Configuration)
-                .AddApplication();
+                .ConfigureSwaggerOptions();
 
             builder.Services.AddCors(options =>
             {
@@ -43,6 +48,9 @@ namespace BlazorMultiApp.API.Identity
 
             app.UseCors("AllowedOrigins");
 
+            app.UseRouting();
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();

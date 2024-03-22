@@ -8,21 +8,22 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BlazorMultiApp.Identity.Service.CommandHandlers
 {
-    public class AuthenticateHandler(SignInManager<User> SignInManager, UserManager<User> UserManager, IJwtService JwtService) 
+    public class AuthenticateHandler(SignInManager<User> signInManager, UserManager<User> userManager, IJwtService jwtService) 
         : IRequestHandler<AuthenticateCommand, Result<AuthorizationDto>>
     {
         public async Task<Result<AuthorizationDto>> Handle(AuthenticateCommand request, CancellationToken cancellationToken)
         {
-            var signInResult = await SignInManager.PasswordSignInAsync(request.AuthenticateRequestDto.Email, request.AuthenticateRequestDto.Password, false, false);
+            var signInResult = await signInManager.PasswordSignInAsync(request.AuthenticateRequestDto.Email, 
+                request.AuthenticateRequestDto.Password, false, false);
 
             if (!signInResult.Succeeded)
             {
                 return Result.Fail(new Error("Invalid credentials"));
             }
 
-            var userResult = await UserManager.FindByEmailAsync(request.AuthenticateRequestDto.Email);
+            var userResult = await userManager.FindByEmailAsync(request.AuthenticateRequestDto.Email);
 
-            var authorizationDto = new AuthorizationDto(JwtService.GenerateAccessToken(userResult!), string.Empty);
+            var authorizationDto = new AuthorizationDto(jwtService.GenerateAccessToken(userResult!), Guid.NewGuid().ToString());
 
             return Result.Ok(authorizationDto);
         }

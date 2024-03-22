@@ -1,6 +1,7 @@
 ﻿using BlazorMultiApp.Identity.Service.Commands;
 using BlazorMultiApp.Identity.Service.DTOs.Request;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorMultiApp.Identity.API.Controllers
@@ -13,19 +14,44 @@ namespace BlazorMultiApp.Identity.API.Controllers
 
         // POST api/<AuthController>
         [HttpPost("sign-in")]
-        public async Task<IActionResult> Post([FromBody] AuthenticateRequestDto request)
+        public async Task<IActionResult> SignIn([FromBody] AuthenticateRequestDto request)
         {
             var result = await _mediator.Send(new AuthenticateCommand(request));
 
-            return Ok(result);
+            if (result.IsFailed)
+            {
+                return BadRequest(result.Errors.First());
+            }
+
+            return Ok(result.Value);
         }
 
-        //// GET: api/<AuthController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+        [HttpGet("sign-out")]
+        public async Task<IActionResult> SignOut()
+        {
+            var result = await _mediator.Send(new SignOutCommand());
+
+            if (result.IsFailed)
+            {
+                return BadRequest(result.Errors.First());
+            }
+
+            return Ok();
+        }
+
+        // GET: api/<AuthController>
+        [HttpGet]
+        [Authorize]
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
+
+        [HttpGet("sign-in-return")]
+        public IEnumerable<string> SignInCallback()
+        {
+            return new string[] { "value1", "value2" };
+        }
 
         //// GET api/<AuthController>/5
         //[HttpGet("{id}")]
