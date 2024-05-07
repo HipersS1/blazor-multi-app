@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorMultiApp.Client\BlazorMultiApp.Client.csproj" />
-    <ProjectReference Include="..\Constants\Constants.csproj" />
     <PackageReference Include="Blazor.Bootstrap" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
   </ItemGroup>

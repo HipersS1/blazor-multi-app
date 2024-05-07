@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{DE525675-1776-41DE-A03E-AF9D4EEB779D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMultiApp.Identity.API", "APIs\BlazorMultiApp.API.Identity\BlazorMultiApp.Identity.API.csproj", "{661CEDA2-8E1C-4D56-BFE7-B216EEE2CA3C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMultiApp.Identity.Domain", "APIs\BlazorMultiApp.Identity.Domain\BlazorMultiApp.Identity.Domain.csproj", "{1E95803C-4F26-452B-A2EE-E2F100AB2679}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMultiApp.Identity.Infrastructure", "APIs\BlazorMultiApp.Identity.Infrastructure\BlazorMultiApp.Identity.Infrastructure.csproj", "{EE0C0B71-F961-40B6-BCEE-256CC782CED6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMultiApp.Identity.Service", "APIs\BlazorMultiApp.Identity.Service\BlazorMultiApp.Identity.Service.csproj", "{71CCD3CB-5A42-417F-81FF-4D33C18CB99B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMultiApp.Identity.Utils", "BlazorMultiApp.Identity.Utils\BlazorMultiApp.Identity.Utils.csproj", "{187173E8-FA47-4513-8EF9-24B45BAB904A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMultiApp.Utils", "BlazorMultiApp.Utils\BlazorMultiApp.Utils.csproj", "{CA388ACE-76A1-40BE-96CA-BEE9F101016E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{661CEDA2-8E1C-4D56-BFE7-B216EEE2CA3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{661CEDA2-8E1C-4D56-BFE7-B216EEE2CA3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{661CEDA2-8E1C-4D56-BFE7-B216EEE2CA3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{661CEDA2-8E1C-4D56-BFE7-B216EEE2CA3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E95803C-4F26-452B-A2EE-E2F100AB2679}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E95803C-4F26-452B-A2EE-E2F100AB2679}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E95803C-4F26-452B-A2EE-E2F100AB2679}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E95803C-4F26-452B-A2EE-E2F100AB2679}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE0C0B71-F961-40B6-BCEE-256CC782CED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE0C0B71-F961-40B6-BCEE-256CC782CED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE0C0B71-F961-40B6-BCEE-256CC782CED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE0C0B71-F961-40B6-BCEE-256CC782CED6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71CCD3CB-5A42-417F-81FF-4D33C18CB99B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71CCD3CB-5A42-417F-81FF-4D33C18CB99B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71CCD3CB-5A42-417F-81FF-4D33C18CB99B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71CCD3CB-5A42-417F-81FF-4D33C18CB99B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{187173E8-FA47-4513-8EF9-24B45BAB904A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{187173E8-FA47-4513-8EF9-24B45BAB904A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{187173E8-FA47-4513-8EF9-24B45BAB904A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{187173E8-FA47-4513-8EF9-24B45BAB904A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA388ACE-76A1-40BE-96CA-BEE9F101016E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA388ACE-76A1-40BE-96CA-BEE9F101016E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA388ACE-76A1-40BE-96CA-BEE9F101016E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA388ACE-76A1-40BE-96CA-BEE9F101016E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{661CEDA2-8E1C-4D56-BFE7-B216EEE2CA3C} = {DE525675-1776-41DE-A03E-AF9D4EEB779D}
+		{1E95803C-4F26-452B-A2EE-E2F100AB2679} = {DE525675-1776-41DE-A03E-AF9D4EEB779D}
+		{EE0C0B71-F961-40B6-BCEE-256CC782CED6} = {DE525675-1776-41DE-A03E-AF9D4EEB779D}
+		{71CCD3CB-5A42-417F-81FF-4D33C18CB99B} = {DE525675-1776-41DE-A03E-AF9D4EEB779D}
+		{187173E8-FA47-4513-8EF9-24B45BAB904A} = {DE525675-1776-41DE-A03E-AF9D4EEB779D}
+	EndGlobalSection
+EndGlobal
