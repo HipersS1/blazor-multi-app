@@ -14,7 +14,7 @@ namespace BlazorMultiApp.Identity.API.Controllers
 
         // POST api/<AuthController>
         [HttpPost("sign-in")]
-        public async Task<IActionResult> SignIn([FromBody] AuthenticateRequestDto request)
+        public async Task<IActionResult> SignIn([FromBody] AuthenticateRequest request)
         {
             var result = await _mediator.Send(new AuthenticateCommand(request));
 

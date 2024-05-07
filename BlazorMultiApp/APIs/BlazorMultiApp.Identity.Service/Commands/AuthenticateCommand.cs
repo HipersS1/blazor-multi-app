@@ -5,5 +5,5 @@ using MediatR;
 
 namespace BlazorMultiApp.Identity.Service.Commands
 {
-    public record AuthenticateCommand(AuthenticateRequestDto AuthenticateRequestDto) : IRequest<Result<AuthorizationDto>>;
+    public record AuthenticateCommand(AuthenticateRequest AuthenticateRequestDto) : IRequest<Result<AuthorizationDto>>;
 }

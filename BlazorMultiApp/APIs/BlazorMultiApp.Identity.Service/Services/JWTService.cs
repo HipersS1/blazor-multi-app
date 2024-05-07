@@ -14,21 +14,19 @@ namespace BlazorMultiApp.Identity.Service.Services
         {
             return GenerateToken(new Dictionary<string, object>
             {
+                { JwtClaimTypes.IssuedAt, DateTimeOffset.UtcNow.ToUnixTimeSeconds() },
                 { JwtClaimTypes.Expiration, DateTimeOffset.UtcNow.AddDays(1).ToUnixTimeSeconds() },
                 { JwtClaimTypes.FamilyName,  user.LastName},
                 { JwtClaimTypes.GivenName, user.FirstName},
                 { JwtClaimTypes.MiddleName, user.MiddleName ?? string.Empty},
-                { JwtClaimTypes.Subject, user.Id.ToString() }
+                { JwtClaimTypes.Issuer, KeyOptions.Value.Issuer },
+                { JwtClaimTypes.Audience, KeyOptions.Value.Audience },
             });
         }
 
         public string GenerateRefreshToken()
         {
-            return GenerateToken(new Dictionary<string, object>
-            {
-                { JwtClaimTypes.Expiration, DateTimeOffset.UtcNow.AddDays(7).ToUnixTimeSeconds() },
-                { "refresh_token", Guid.NewGuid() } 
-            });
+            return Guid.NewGuid().ToString();
         }
 
         public bool ValidateToken()

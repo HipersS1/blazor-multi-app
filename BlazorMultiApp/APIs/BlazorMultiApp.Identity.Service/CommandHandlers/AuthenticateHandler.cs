@@ -23,7 +23,7 @@ namespace BlazorMultiApp.Identity.Service.CommandHandlers
 
             var userResult = await userManager.FindByEmailAsync(request.AuthenticateRequestDto.Email);
 
-            var authorizationDto = new AuthorizationDto(jwtService.GenerateAccessToken(userResult!), Guid.NewGuid().ToString());
+            var authorizationDto = new AuthorizationDto(jwtService.GenerateAccessToken(userResult!), jwtService.GenerateRefreshToken());
 
             return Result.Ok(authorizationDto);
         }
